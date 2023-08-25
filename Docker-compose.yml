@@ -17,7 +17,7 @@ services:
         entrypoint: /app/server-entrypoint.sh
         volumes:
             - static_volume:/vol/app/static 
-            - db_data:/app/db.sqlite3
+            - db_data:/var/lib/sqlite3
             - media_volume:/vol/app/media
         ports:
             - "8000:8000"
