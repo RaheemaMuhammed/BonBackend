@@ -9,16 +9,16 @@ services:
         depends_on:
           - backend
         volumes:
-          - static_volume:/vol/static
-          - media_volume:/vol/media
+          - static_volume:/vol/app/static
+          - media_volume:/vol/app/media
     backend:
         restart: always
         build: .
         entrypoint: /app/server-entrypoint.sh
         volumes:
-            - static_volume:/vol/app
+            - static_volume:/vol/app/static 
             - db_data:/app/db.sqlite3
-            - media_volume:/vol/media
+            - media_volume:/vol/app/media
         ports:
             - "8000:8000"
         env_file:
@@ -31,7 +31,8 @@ services:
         build: . 
         entrypoint: /app/worker-entrypoint.sh
         volumes:
-            - static_volume:/app/app
+            - static_volume:/vol/app/static
+            - media_volume:/vol/app/media
         environment:
             DEBUG: "True"
             CELERY_BROKER_URL: "redis://redis:6379/0"
@@ -43,7 +44,8 @@ services:
         build: . 
         entrypoint: /app/beat-entrypoint.sh
         volumes:
-            - static_volume:/app/app
+            - static_volume:/vol/app/static
+            - media_volume:/vol/app/media
         environment:
             DEBUG: "True"
             CELERY_BROKER_URL: "redis://redis:6379/0"

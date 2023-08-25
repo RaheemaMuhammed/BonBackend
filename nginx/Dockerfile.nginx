@@ -1,6 +1,16 @@
 FROM nginx:1.19.0-alpine
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-RUN mkdir -p /vol/app/static && \ 
-    mkdir -p /vol/app/media
+
+USER root
+
+RUN mkdir -p /vol/app/static && \
+    chmod 755 /vol/app/static && \ 
+    mkdir -p /vol/app/media && \
+    chmod 755 /vol/app/media
+
+VOLUME /vol/app/static
+VOLUME /vol/app/media
+
+
 # CMD [ "/bin/bash", "-c", "nginx -g 'daemon off;'" ]
