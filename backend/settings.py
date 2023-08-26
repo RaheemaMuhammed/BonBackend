@@ -225,3 +225,9 @@ AUTH_USER_MODEL = 'account.CustomUser'
 MEDIA_URL = '/media/'
 MEDIA_ROOT='/vol/app/media'
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+# settings.py
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
