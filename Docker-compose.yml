@@ -2,22 +2,27 @@ services:
     nginx:
         restart: always
         build:
-          context: ./nginx/
-          dockerfile: Dockerfile.nginx
+          context: ./proxy/
+        #   dockerfile: Dockerfile.nginx
         ports:
-          - "80:80"
+          - 80:80
+          - 443:443
         depends_on:
           - backend
         volumes:
           - static_volume:/vol/app/static
           - media_volume:/vol/app/media
+          - certbot-web:/vol/www
+          - certbot-dhparams:/vol/proxy
+          - certbot-certs:/etc/letsencrypt
+        environment:
+            - DOMAIN=${DOMAIN}
     backend:
         restart: always
         build: .
         entrypoint: /app/server-entrypoint.sh
         volumes:
             - static_volume:/vol/app/static 
-            # - db_data:/var/lib/sqlite3
             - ./db.sqlite3:/app/db.sqlite3
             - media_volume:/vol/app/media
         ports:
@@ -58,6 +63,18 @@ services:
         image: redis:7.0.5-alpine 
         expose:
             - 6379
+    certbot:
+        build: 
+           context: ./certbot
+        command: echo "Skipping"
+        environment:
+            - EMAIL=${ACME_DEFAULT_EMAIL}
+            - DOMAIN=${DOMAIN}
+        volumes:
+            - certbot-web:/vol/www
+            - certbot-certs:/etc/letsencrypt/
+        depends_on:
+            - nginx
     
     
     
@@ -66,5 +83,8 @@ volumes:
     static_volume:
     media_volume:
     db_data:
+    certbot-web:
+    certbot-certs:
+    proxy-dhparams:
 
     
