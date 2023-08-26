@@ -1,4 +1,4 @@
-FROM certbot/certbot:v1.27.0
+FROM certbot/certbot
 
 COPY certify-init.sh /opt/
 RUN chmod +x /opt/certify-init.sh
