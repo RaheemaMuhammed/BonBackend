@@ -13,7 +13,7 @@ services:
           - static_volume:/vol/app/static
           - media_volume:/vol/app/media
           - certbot-web:/vol/www
-          - certbot-dhparams:/vol/proxy
+          - proxy-dhparams:/vol/proxy
           - certbot-certs:/etc/letsencrypt
         environment:
             - DOMAIN=${DOMAIN}
