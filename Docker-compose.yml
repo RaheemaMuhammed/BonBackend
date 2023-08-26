@@ -3,7 +3,7 @@ services:
         restart: always
         build:
           context: ./proxy/
-        #   dockerfile: Dockerfile.nginx
+          dockerfile: Dockerfile.nginx
         ports:
           - 80:80
           - 443:443
