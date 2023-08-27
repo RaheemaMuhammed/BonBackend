@@ -1,3 +1,6 @@
+upstream backend {
+    server 0.0.0.0:8000;
+}
 server {
     listen 80;
     server_name bonappetit.website www.bonappetit.website;
@@ -37,14 +40,14 @@ server {
 
 
      location / {
-         proxy_pass http://0.0.0.0:8000;
+         proxy_pass http://backend;
          include  /etc/nginx/proxy_params;
          
          
      }
 
      location /wss {
-         proxy_pass http://0.0.0.0:8000; 
+         proxy_pass http://backend; 
          include /etc/nginx/proxy_params_ws;
          
      }
