@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-
+ /etc/letsencrypt/live/bonappetit.website/fullchain.pem
 echo "Checking for dhparams.pem"
 if [ ! -f "/vol/proxy/ssl-dhparams.pem" ]; then
   echo "dhparams.pem does not exist - creating it"
@@ -11,6 +11,7 @@ fi
 # Avoid replacing these with envsubst
 export host=\$host
 export request_uri=\$request_uri
+export DOLLAR="$"
 
 echo "Checking for fullchain.pem"
 if [ ! -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then

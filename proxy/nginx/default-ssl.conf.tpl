@@ -38,17 +38,25 @@ server {
          alias /vol/app/media/ ;
      }
 
-
+   
      location / {
          proxy_pass http://backend;
-         include  /etc/nginx/proxy_params;
-         
-         
+         proxy_set_header    HOST    ${DOLLAR}host;
+         proxy_set_header    X-Real-IP   $remote_addr;
+        proxy_set_header    X-Forwarded-for $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        port_in_redirect off;
+        proxy_connect_timeout 300;
      }
 
      location /wss {
          proxy_pass http://backend; 
-         include /etc/nginx/proxy_params_ws;
+         proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-for $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
          
      }
 }
