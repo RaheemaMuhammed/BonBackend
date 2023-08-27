@@ -42,20 +42,20 @@ server {
      location / {
          proxy_pass http://backend;
          proxy_set_header    HOST    ${DOLLAR}host;
-         proxy_set_header    X-Real-IP   $remote_addr;
-        proxy_set_header    X-Forwarded-for $remote_addr;
-        proxy_set_header X-Forwarded-Proto $scheme;
+         proxy_set_header    X-Real-IP   ${DOLLAR}remote_addr;
+        proxy_set_header    X-Forwarded-for ${DOLLAR}remote_addr;
+        proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
         port_in_redirect off;
         proxy_connect_timeout 300;
      }
 
      location /wss {
          proxy_pass http://backend; 
-         proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-for $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
+         proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
+        proxy_set_header X-Forwarded-for ${DOLLAR}proxy_add_x_forwarded_for;
+        proxy_set_header Host ${DOLLAR}http_host;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade ${DOLLAR}http_upgrade;
         proxy_set_header Connection "upgrade";
          
      }
