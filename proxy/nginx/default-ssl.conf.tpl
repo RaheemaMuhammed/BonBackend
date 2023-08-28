@@ -12,7 +12,7 @@ server {
     location / {
         return 301 https://$host$request_uri;
     }
-    location /ws {
+    location /ws/ {
         return 301 https://$host$request_uri;
     }
     
@@ -47,10 +47,12 @@ server {
         proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
         proxy_http_version 1.1;
         port_in_redirect off;
+        proxy_set_header Upgrade ${DOLLAR}http_upgrade;
+        proxy_set_header Connection "upgrade";
        
      }
 
-     location /wss {
+     location /wss/ {
          proxy_pass http://backend; 
          proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
         proxy_set_header X-Forwarded-for ${DOLLAR}proxy_add_x_forwarded_for;
