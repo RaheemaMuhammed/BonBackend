@@ -12,6 +12,9 @@ export host=\$host
 export request_uri=\$request_uri
 export DOLLAR="$"
 
+echo "host: $host"
+echo "request_uri: $request_uri"
+
 echo "Checking for fullchain.pem"
 if [ ! -f "/etc/letsencrypt/live/${DOMAIN}/fullchain.pem" ]; then
   echo "No SSL cert, enabling HTTP only..."

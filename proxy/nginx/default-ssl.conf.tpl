@@ -1,6 +1,4 @@
-upstream backend {
-    server 0.0.0.0:8000;
-}
+
 server {
     listen 80;
     server_name bonappetit.website www.bonappetit.website;
@@ -13,9 +11,6 @@ server {
         return 301 https://$host$request_uri;
     }
     
-    location /ws {
-        return 301 https://$host$request_uri;  
-    }
 }
 
 server {
@@ -40,7 +35,7 @@ server {
 
    
      location / {
-         proxy_pass http://backend;
+         proxy_pass http://16.170.248.0:8000;
          proxy_set_header    HOST    ${DOLLAR}host;
          proxy_set_header    X-Real-IP   ${DOLLAR}remote_addr;
         proxy_set_header    X-Forwarded-for ${DOLLAR}remote_addr;
@@ -50,7 +45,7 @@ server {
      }
 
      location /wss {
-         proxy_pass http://backend; 
+         proxy_pass http://16.170.248.0:8000; 
          proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
         proxy_set_header X-Forwarded-for ${DOLLAR}proxy_add_x_forwarded_for;
         proxy_set_header Host ${DOLLAR}http_host;
