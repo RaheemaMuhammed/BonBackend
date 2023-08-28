@@ -8,9 +8,7 @@ COPY ./run.sh /run.sh
 # ENV APP_PORT=9000
 
 RUN apk add --no-cache openssl bash
-RUN chmod +x /run.sh && \
-    chmod +x /etc/nginx/proxy_params && \
-    chmod +x /etc/nginx/proxy_params_ws 
+RUN chmod +x /run.sh 
 
 
 USER root
