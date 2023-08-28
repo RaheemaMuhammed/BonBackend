@@ -12,6 +12,9 @@ server {
     location / {
         return 301 https://$host$request_uri;
     }
+    location /ws {
+        return 301 https://$host$request_uri;
+    }
     
 }
 
