@@ -35,17 +35,18 @@ server {
 
    
      location / {
-         proxy_pass http://16.170.248.0:8000;
+         proxy_pass http://127.0.0.1:8000;
          proxy_set_header    HOST    ${DOLLAR}host;
          proxy_set_header    X-Real-IP   ${DOLLAR}remote_addr;
         proxy_set_header    X-Forwarded-for ${DOLLAR}remote_addr;
         proxy_set_header X-Forwarded-Proto ${DOLLAR}scheme;
+        proxy_http_version 1.1;
         port_in_redirect off;
-        proxy_connect_timeout 300;
+       
      }
 
      location /wss {
-         proxy_pass http://16.170.248.0:8000; 
+         proxy_pass http://127.0.0.1:8000; 
          proxy_set_header X-Real-IP ${DOLLAR}remote_addr;
         proxy_set_header X-Forwarded-for ${DOLLAR}proxy_add_x_forwarded_for;
         proxy_set_header Host ${DOLLAR}http_host;
