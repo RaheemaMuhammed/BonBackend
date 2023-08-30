@@ -4,7 +4,7 @@ upstream backend {
 server {
     listen 80;
     server_name bonappetit.website www.bonappetit.website;
-
+    client_max_body_size 100M;
     location /.well-known/acme-challenge{
         root /vol/www/; 
     }
@@ -21,7 +21,7 @@ server {
 server {
     listen 443 ssl;
     server_name bonappetit.website www.bonappetit.website;
-
+    client_max_body_size 100M;
     ssl_certificate     /etc/letsencrypt/live/bonappetit.website/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/bonappetit.website/privkey.pem;
 
