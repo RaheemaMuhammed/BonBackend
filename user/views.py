@@ -401,6 +401,7 @@ class Reports(APIView):
      def post(self,request):
         try:
             data=request.data
+            setattr(request.data, '_mutable', True)
             user=request.user.id
             recipe_id=data['reported_item']
             data['user']=user
